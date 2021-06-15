@@ -17,6 +17,8 @@ import java.util.Random;
  */
 public class FalloutConsole {
 
+    static int vides = 5;
+
     public static void main(String[] args) {
         // TODO code application logic here
         String winner = "";
@@ -25,32 +27,28 @@ public class FalloutConsole {
         List<String> paraulesAfegir = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "jju");
         paraules.addAll(paraulesAfegir);
 
-        Random ran = new Random();
-        int randomNum = 0 + ran.nextInt((paraules.size() - 0) + 1);
-
-        System.out.println("random: " + randomNum);
+        int randomNum= loadRandomWinner(winner, paraules);
 
         ListIterator<String> lt = paraules.listIterator();
         int i = 1;
         while (lt.hasNext()) {
             String nom = lt.next();
+            
 
-            if(i==randomNum){
-                winner=nom;
+            if (i == randomNum) {
+                winner = nom;
             }
             System.out.println(i + "- " + nom);
             i++;
         }
-        
+
         int decisio;
-        int vides = 3;
         boolean gameOn = true;
         boolean winCondition = false;
 
         do {
 
-            decisio = Teclado.leerInt("word number\n");
-
+            decisio = askForNumber();
             ListIterator<String> lt2 = paraules.listIterator();
 
             boolean trobat = false;
@@ -98,6 +96,19 @@ public class FalloutConsole {
             System.out.println("game over");
         }
 
+    }
+
+    static int askForNumber() {
+        int choice = Teclado.leerInt("word number\n");
+        return choice;
+    }
+
+    static int loadRandomWinner(String winnerStr, ArrayList<String> paraules) {
+        Random ran = new Random();
+        int randomNum = 0 + ran.nextInt((paraules.size() - 0) + 1);
+
+        System.out.println("random: " + randomNum);
+        return randomNum;
     }
 
 }
