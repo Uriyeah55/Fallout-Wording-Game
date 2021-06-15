@@ -16,9 +16,6 @@ import java.util.ListIterator;
  */
 public class FalloutConsole {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // TODO code application logic here
         String winner = "Dani";
@@ -35,39 +32,60 @@ public class FalloutConsole {
             System.out.println(i + nom);
             i++;
         }
-        int decisio = Teclado.leerInt("word number\n");
+        int decisio;
+        int vides = 3;
+        boolean gameOn = true;
+        boolean winCondition = false;
 
-        ListIterator<String> lt2 = paraules.listIterator();
+        do {
 
-        boolean trobat = false;
-        i = 1;
-        while (lt2.hasNext() && !trobat) {
-            String nom = lt2.next();
+            decisio = Teclado.leerInt("word number\n");
 
-            if (i == decisio) {
-                int coincidencies = 0;
-                System.out.println("nom escollit " + nom);
-                char[] nomChar = nom.toCharArray();
-                char[] winnerChar = winner.toCharArray();
+            ListIterator<String> lt2 = paraules.listIterator();
 
-                //comparacio
-                for(int k=0;k<nomChar.length;k++){
-                    for(int j=0;j<winnerChar.length;j++){
-                        if(nomChar[k]==winnerChar[j]){
-                            coincidencies++;
+            boolean trobat = false;
+            i = 1;
+            while (lt2.hasNext() && !trobat) {
+                String nom = lt2.next();
+
+                if (i == decisio) {
+                    int coincidencies = 0;
+                    System.out.println("nom escollit " + nom);
+                    char[] nomChar = nom.toCharArray();
+                    char[] winnerChar = winner.toCharArray();
+
+                    //comparacio
+                    for (int k = 0; k < nomChar.length; k++) {
+                        for (int j = 0; j < winnerChar.length; j++) {
+                            if (nomChar[k] == winnerChar[j]) {
+                                coincidencies++;
+                            }
                         }
                     }
-                }
-                
-                System.out.println("hi ha " + coincidencies + "coincidencies");
-                System.out.println("winner");
+                    if (nom.equals(winner)) {
+                        winCondition = true;
+                        gameOn = false;
+                    }else{
+                        vides--;
+                    }
+                    System.out.println("hi ha " + coincidencies + "coincidencies");
+                    System.out.println("winner");
 
-                for (char c : winnerChar) {
-                    System.out.print(c);
+                    System.out.println("Vides actuals " + vides);
+                    for (char c : winnerChar) {
+                        System.out.print(c);
+                    }
+                    trobat = true;
                 }
-                trobat = true;
+                i++;
             }
-            i++;
+
+        } while (vides > 0 && gameOn);
+
+        if (winCondition) {
+            System.out.println("victory");
+        } else {
+            System.out.println("game over");
         }
 
     }
