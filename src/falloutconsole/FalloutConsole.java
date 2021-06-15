@@ -23,23 +23,23 @@ public class FalloutConsole {
         // TODO code application logic here
         String winner = "";
 
-        ArrayList<String> paraules = new ArrayList();
-        List<String> paraulesAfegir = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "Eric", "Carlos", "Pepe");
-        paraules.addAll(paraulesAfegir);
+        ArrayList<String> words = new ArrayList();
+        List<String> wordsToAdd = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "Eric", "Carlos", "Pepe");
+        words.addAll(wordsToAdd);
 
-        int randomNum= loadRandomWinner(winner, paraules);
+        int randomNum = loadRandomWinner(winner, words);
 
-        
-        ListIterator<String> lt = paraules.listIterator();
+        ListIterator<String> lt = words.listIterator();
         int i = 1;
+
         while (lt.hasNext()) {
-           
-            String nom = lt.next();            
+
+            String currentWord = lt.next();
 
             if (i == randomNum) {
-                winner = nom;
+                winner = currentWord;
             }
-            System.out.print(i + "- " + nom + " |");
+            System.out.print(i + "- " + currentWord + " |");
             i++;
         }
 
@@ -50,7 +50,7 @@ public class FalloutConsole {
         do {
 
             choice = askForNumber();
-            ListIterator<String> lt2 = paraules.listIterator();
+            ListIterator<String> lt2 = words.listIterator();
 
             boolean trobat = false;
             i = 1;
@@ -58,8 +58,8 @@ public class FalloutConsole {
                 String nom = lt2.next();
 
                 if (i == choice) {
-                    int coincidencies = 0;
-                    System.out.println("nom escollit " + nom);
+                    int matches = 0;
+                    //System.out.println("chosen " + nom);
                     char[] nomChar = nom.toCharArray();
                     char[] winnerChar = winner.toCharArray();
 
@@ -67,7 +67,7 @@ public class FalloutConsole {
                     for (int k = 0; k < nomChar.length; k++) {
                         for (int j = 0; j < winnerChar.length; j++) {
                             if (nomChar[k] == winnerChar[j]) {
-                                coincidencies++;
+                                matches++;
                             }
                         }
                     }
@@ -77,8 +77,7 @@ public class FalloutConsole {
                     } else {
                         vides--;
                     }
-                    System.out.println("hi ha " + coincidencies + " coincidencies");
-                    
+                    System.out.println("There are " + matches + " matches");
 
                     System.out.println("Lives left= " + vides);
                     for (char c : winnerChar) {
@@ -90,7 +89,7 @@ public class FalloutConsole {
             }
 
         } while (vides > 0 && gameOn);
-
+        System.out.println("");
         if (winCondition) {
             System.out.println("victory");
         } else {
@@ -100,7 +99,8 @@ public class FalloutConsole {
     }
 
     static int askForNumber() {
-        int choice = Teclado.leerInt("word number\n");
+        System.out.println("");
+        int choice = Teclado.leerInt("Name index?\n");
         return choice;
     }
 
