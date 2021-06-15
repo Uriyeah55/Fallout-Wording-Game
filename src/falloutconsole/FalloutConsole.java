@@ -24,31 +24,32 @@ public class FalloutConsole {
         String winner = "";
 
         ArrayList<String> paraules = new ArrayList();
-        List<String> paraulesAfegir = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "jju");
+        List<String> paraulesAfegir = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "Eric", "Carlos", "Pepe");
         paraules.addAll(paraulesAfegir);
 
         int randomNum= loadRandomWinner(winner, paraules);
 
+        
         ListIterator<String> lt = paraules.listIterator();
         int i = 1;
         while (lt.hasNext()) {
-            String nom = lt.next();
-            
+           
+            String nom = lt.next();            
 
             if (i == randomNum) {
                 winner = nom;
             }
-            System.out.println(i + "- " + nom);
+            System.out.print(i + "- " + nom + " |");
             i++;
         }
 
-        int decisio;
+        int choice;
         boolean gameOn = true;
         boolean winCondition = false;
 
         do {
 
-            decisio = askForNumber();
+            choice = askForNumber();
             ListIterator<String> lt2 = paraules.listIterator();
 
             boolean trobat = false;
@@ -56,13 +57,13 @@ public class FalloutConsole {
             while (lt2.hasNext() && !trobat) {
                 String nom = lt2.next();
 
-                if (i == decisio) {
+                if (i == choice) {
                     int coincidencies = 0;
                     System.out.println("nom escollit " + nom);
                     char[] nomChar = nom.toCharArray();
                     char[] winnerChar = winner.toCharArray();
 
-                    //comparacio
+                    //comparing strings char by char
                     for (int k = 0; k < nomChar.length; k++) {
                         for (int j = 0; j < winnerChar.length; j++) {
                             if (nomChar[k] == winnerChar[j]) {
@@ -76,10 +77,10 @@ public class FalloutConsole {
                     } else {
                         vides--;
                     }
-                    System.out.println("hi ha " + coincidencies + "coincidencies");
-                    System.out.println("winner");
+                    System.out.println("hi ha " + coincidencies + " coincidencies");
+                    
 
-                    System.out.println("Vides actuals " + vides);
+                    System.out.println("Lives left= " + vides);
                     for (char c : winnerChar) {
                         System.out.print(c);
                     }
@@ -105,7 +106,7 @@ public class FalloutConsole {
 
     static int loadRandomWinner(String winnerStr, ArrayList<String> paraules) {
         Random ran = new Random();
-        int randomNum = 0 + ran.nextInt((paraules.size() - 0) + 1);
+        int randomNum = 1 + ran.nextInt((paraules.size() - 1) + 1);
 
         System.out.println("random: " + randomNum);
         return randomNum;
