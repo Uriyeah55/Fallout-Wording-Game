@@ -91,9 +91,9 @@ public class FalloutConsole {
         } while (vides > 0 && gameOn);
         System.out.println("");
         if (winCondition) {
-            System.out.println("victory");
+            System.out.println("Victory");
         } else {
-            System.out.println("game over");
+            System.out.println("Game Over");
         }
 
     }
@@ -108,7 +108,7 @@ public class FalloutConsole {
         Random ran = new Random();
         int randomNum = 1 + ran.nextInt((paraules.size() - 1) + 1);
 
-        System.out.println("random: " + randomNum);
+        //System.out.println("random: " + randomNum);
         return randomNum;
     }
 
