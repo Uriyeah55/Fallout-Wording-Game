@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 /**
  *
@@ -18,20 +19,29 @@ public class FalloutConsole {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        String winner = "Dani";
+        String winner = "";
 
         ArrayList<String> paraules = new ArrayList();
         List<String> paraulesAfegir = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "jju");
         paraules.addAll(paraulesAfegir);
+
+        Random ran = new Random();
+        int randomNum = 0 + ran.nextInt((paraules.size() - 0) + 1);
+
+        System.out.println("random: " + randomNum);
 
         ListIterator<String> lt = paraules.listIterator();
         int i = 1;
         while (lt.hasNext()) {
             String nom = lt.next();
 
-            System.out.println(i + nom);
+            if(i==randomNum){
+                winner=nom;
+            }
+            System.out.println(i + "- " + nom);
             i++;
         }
+        
         int decisio;
         int vides = 3;
         boolean gameOn = true;
@@ -65,7 +75,7 @@ public class FalloutConsole {
                     if (nom.equals(winner)) {
                         winCondition = true;
                         gameOn = false;
-                    }else{
+                    } else {
                         vides--;
                     }
                     System.out.println("hi ha " + coincidencies + "coincidencies");
