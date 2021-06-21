@@ -11,27 +11,26 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-/**
- *
- * @author omascarop
- */
 public class FalloutConsole {
 
-    static int vides = 5;
+    static int lives = 5;
+    static List<String> wordsToAdd = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "Eric", "Carlos", "Pepe");
 
     public static void main(String[] args) {
         // TODO code application logic here
         String winner = "";
 
-        ArrayList<String> words = new ArrayList();
         List<String> wordsToAdd = Arrays.asList("Dani", "Uri", "Brian", "Daniel", "Eric", "Carlos", "Pepe");
-        words.addAll(wordsToAdd);
 
-        int randomNum = loadRandomWinner(winner, words);
+        Random ran = new Random();
+        int randomNum = 1 + ran.nextInt((wordsToAdd.size() - 1) + 1);
 
-        ListIterator<String> lt = words.listIterator();
+        winner = wordsToAdd.get(randomNum);
+
+        ListIterator<String> lt = wordsToAdd.listIterator();
         int i = 1;
 
+        //Show words
         while (lt.hasNext()) {
 
             String currentWord = lt.next();
@@ -50,7 +49,7 @@ public class FalloutConsole {
         do {
 
             choice = askForNumber();
-            ListIterator<String> lt2 = words.listIterator();
+            ListIterator<String> lt2 = wordsToAdd.listIterator();
 
             boolean trobat = false;
             i = 1;
@@ -75,11 +74,11 @@ public class FalloutConsole {
                         winCondition = true;
                         gameOn = false;
                     } else {
-                        vides--;
+                        lives--;
                     }
                     System.out.println("There are " + matches + " matches");
 
-                    System.out.println("Lives left= " + vides);
+                    System.out.println("Lives left= " + lives);
                     for (char c : winnerChar) {
                         System.out.print(c);
                     }
@@ -88,7 +87,7 @@ public class FalloutConsole {
                 i++;
             }
 
-        } while (vides > 0 && gameOn);
+        } while (lives > 0 && gameOn);
         System.out.println("");
         if (winCondition) {
             System.out.println("Victory");
@@ -103,13 +102,4 @@ public class FalloutConsole {
         int choice = Teclado.leerInt("Name index?\n");
         return choice;
     }
-
-    static int loadRandomWinner(String winnerStr, ArrayList<String> paraules) {
-        Random ran = new Random();
-        int randomNum = 1 + ran.nextInt((paraules.size() - 1) + 1);
-
-        //System.out.println("random: " + randomNum);
-        return randomNum;
-    }
-
 }
